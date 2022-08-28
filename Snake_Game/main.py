@@ -1,16 +1,34 @@
-# This is a sample Python script.
+import time
+from turtle import Screen
+from snake import Snake
+from game_info import GameInfo
+from food import FoodForSnake
+screen = Screen()
+screen.setup(width=600, height=600)
+screen.bgcolor("black")
+screen.tracer(0)
+screen.title("Snake Game")
+info = GameInfo()
+info.display_info()
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+snake_food = FoodForSnake()
 
+snake_food.food()
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+snake = Snake()
+screen.listen()
+screen.onkeypress(key="Up", fun=snake.up)
+screen.onkeypress(key="Down", fun=snake.down)
+screen.onkeypress(key="Right", fun=snake.right)
+screen.onkeypress(key="Left", fun=snake.left)
+game_is_on = True
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+while game_is_on:
+    screen.update()
+    time.sleep(0.08)
+    snake.move()
+    if snake.segments[0].ycor() > 299 or snake.segments[0].xcor() > 299 or snake.segments[0].ycor() < -299 \
+            or snake.segments[0].xcor() < -299:
+        print("Game Over")
+        break
+screen.exitonclick()
