@@ -5,16 +5,16 @@ from turtle import Turtle
 class FoodForSnake:
 
     def __init__(self):
-        pass
+        self.food = Turtle()
+        self.food.shape("circle")
+        self.food.shapesize(stretch_len=0.5, stretch_wid=0.5)
+        self.food.color("#FF6363")
+        self.food.speed("fastest")
+        self.food.penup()
+        self.refresh()
 
-    def food(self):
-        food = Turtle()
-        food.pensize(10)
-        food.color("#FF6363")
-        food.hideturtle()
-        food.penup()
-        xcod = random.randint(-299, 299)
-        ycod = random.randint(-299, 250)
-        food.goto(x=xcod, y=ycod)
-        food.pendown()
-        food.forward(1)
+    def refresh(self):
+        xcode = random.randint(-290, 290)
+        ycode = random.randint(-290, 250)
+        self.food.goto(x=xcode, y=ycode)
+

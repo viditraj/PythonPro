@@ -6,6 +6,7 @@ class Snake:
     def __init__(self):
         self.segments = []
         self.create_snake()
+        self.speed = 0.01
 
     def create_snake(self):
         for i in range(0, 3):
@@ -14,6 +15,7 @@ class Snake:
             segment.color("white")
             segment.goto(-i * 20, 0)
             self.segments.append(segment)
+            self.segments[0].color("violet")
 
     def move(self):
         for seg_num in range(len(self.segments) - 1, 0, -1):
@@ -33,3 +35,11 @@ class Snake:
 
     def right(self):
         self.segments[0].setheading(0)
+
+    def add_segment(self):
+        i = len(self.segments)-1
+        segment = Turtle("square")
+        segment.penup()
+        segment.color("white")
+        segment.goto(-i * 20, 0)
+        self.segments.append(segment)

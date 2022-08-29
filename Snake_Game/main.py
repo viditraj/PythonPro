@@ -13,8 +13,6 @@ info.display_info()
 
 snake_food = FoodForSnake()
 
-snake_food.food()
-
 snake = Snake()
 screen.listen()
 screen.onkeypress(key="Up", fun=snake.up)
@@ -22,13 +20,28 @@ screen.onkeypress(key="Down", fun=snake.down)
 screen.onkeypress(key="Right", fun=snake.right)
 screen.onkeypress(key="Left", fun=snake.left)
 game_is_on = True
+snake_speed = 0.1
 
 while game_is_on:
     screen.update()
-    time.sleep(0.08)
+    time.sleep(snake_speed)
     snake.move()
     if snake.segments[0].ycor() > 299 or snake.segments[0].xcor() > 299 or snake.segments[0].ycor() < -299 \
             or snake.segments[0].xcor() < -299:
         print("Game Over")
+        info.end_game()
+        game_is_on = False
         break
+    elif snake.segments[0].distance(snake_food.food) < 15:
+        snake_food.refresh()
+        snake.add_segment()
+        info.update_score()
+        info.display_info()
+    for segment in snake.segments[1:]:
+        if snake.segments[0].distance(segment) < 10:
+            print("Game Over")
+            info.end_game()
+            game_is_on = False
+
+
 screen.exitonclick()
