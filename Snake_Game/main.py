@@ -28,10 +28,9 @@ while game_is_on:
     snake.move()
     if snake.segments[0].ycor() > 299 or snake.segments[0].xcor() > 299 or snake.segments[0].ycor() < -299 \
             or snake.segments[0].xcor() < -299:
-        print("Game Over")
-        info.end_game()
-        game_is_on = False
-        break
+        time.sleep(1)
+        info.reset_game()
+        snake.reset_snake()
     elif snake.segments[0].distance(snake_food.food) < 15:
         snake_food.refresh()
         snake.add_segment()
@@ -39,9 +38,9 @@ while game_is_on:
         info.display_info()
     for segment in snake.segments[1:]:
         if snake.segments[0].distance(segment) < 10:
-            print("Game Over")
-            info.end_game()
-            game_is_on = False
+            time.sleep(1)
+            info.reset_game()
+            snake.reset_snake()
 
 
 screen.exitonclick()
