@@ -1,21 +1,38 @@
+from json import JSONDecodeError
 from tkinter import *
 from tkinter import messagebox
 from passwordGenerator import generate_password
 import pyperclip
 import json
 
+# ---------------------------- PASSWORD FINDER ------------------------------- #
+
+
+class EmptyFieldException(Exception):
+    pass
+
 
 def search_password():
     try:
+        website = website_input.get().lower()
+        if website == '':
+            raise EmptyFieldException()
         with open("data.json", "r") as search_data:
-            website = website_input.get().lower()
             data = json.load(search_data)
 
     except FileNotFoundError:
         print("No data file found")
         messagebox.showinfo(title="Error", message="No data file found.")
-    else:
 
+    except JSONDecodeError:
+        print("Empty data file")
+        messagebox.showinfo(title="Error", message="Data file is empty.")
+
+    except EmptyFieldException:
+        print("Empty Search file")
+        messagebox.showinfo(title="Error", message="Search Field can't be empty.")
+
+    else:
         if website in data:
             email = data[website]["email"]
             password = data[website]["password"]
