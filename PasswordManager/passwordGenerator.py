@@ -11,7 +11,6 @@ def generate_password():
     n_capital_letters = random.randint(2, 4)
     n_symbols = random.randint(2, 4)
     n_numbers = random.randint(2, 4)
-
     for i in range(0, n_small_letters):
         password += random.choice(small_letters)
     for i in range(0, n_symbols):
@@ -22,5 +21,8 @@ def generate_password():
         password += random.choice(capital_letters)
     random_order = list(password)
     random.shuffle(random_order)
+    final_password = ""
     final_password = ''.join(random_order)
     return final_password
+
+
